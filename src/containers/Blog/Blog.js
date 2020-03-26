@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import axios from 'axios';
 import Posts from "./Posts/Posts";
 import NewPost from "../../containers/Blog/NewPost/NewPost";
-import { Route, Link } from "react-router-dom";
+import { Route, NavLink } from "react-router-dom";
 
 import "./Blog.css";
 
@@ -11,6 +11,7 @@ import "./Blog.css";
 // Link to={{}} -> this allow to jump to any ID submit in that element,
 // add ("#" / URL) to jump to that Point!
 // search: -> allow us to add queryParams!
+// note: with (exact + NavLink) can set up active classes "e.g. marker active url's"
 class Blog extends Component {
   render() {
     return (
@@ -19,10 +20,12 @@ class Blog extends Component {
           <nav>
             <ul>
               <li>
-                <Link to="/">Home</Link>
+                <NavLink to="/" exact>
+                  Home
+                </NavLink>
               </li>
               <li>
-                <Link
+                <NavLink
                   to={{
                     // {/* Note: this is a absolute path ! */}
                     pathname: "/new-post",
@@ -35,7 +38,7 @@ class Blog extends Component {
                   }}
                 >
                   New Post
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </nav>
@@ -50,7 +53,7 @@ class Blog extends Component {
 }
 export default Blog;
 
-```Absolute vs Relative Paths (Article)
+`Absolute vs Relative Paths (Article)
 You learned about <Link> , you learned about the to  property it uses.
 
 The path you can use in to can be either absolute or relative. 
@@ -71,4 +74,4 @@ To change this behavior, you have to find out which path you're on and add the n
 
 There's no better or worse way of creating Link paths - choose the one you need. Sometimes, you want to ensure that you always load the same path, no matter on which path you already are => Use absolute paths in this scenario.
 
-Use relative paths if you want to navigate relative to your existing path. ```;
+Use relative paths if you want to navigate relative to your existing path. `;
