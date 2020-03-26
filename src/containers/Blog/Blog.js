@@ -24,7 +24,12 @@ class Blog extends Component {
               <li>
                 <Link
                   to={{
+                    // {/* Note: this is a absolute path ! */}
                     pathname: "/new-post",
+                    // { /*Note: this is a relative path! -> use it to build a link,
+                    // which appends the path to the end of the current path!
+                    // pathname: this.props.match.url + "/new-post" */}
+
                     hash: "#submit",
                     search: "?quick-submit=true"
                   }}
