@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 // import axios from 'axios';
-import axios from "../../axios";
 import Posts from "./Posts/Posts";
-import Post from "../../components/Post/Post";
+import { Route } from "react-router-dom";
 
 import "./Blog.css";
+
+// use path="/" -> to tell react router, does my path start with this...
+//exact -> Except for the case that define in path="/"!
 
 class Blog extends Component {
   render() {
@@ -22,7 +24,7 @@ class Blog extends Component {
             </ul>
           </nav>
         </header>
-        <Posts />
+        <Route path="/" exact render={() => <h1>Home</h1>} />
       </div>
     );
   }
