@@ -12,6 +12,7 @@ import "./Blog.css";
 // add ("#" / URL) to jump to that Point!
 // search: -> allow us to add queryParams!
 // note: with (exact + NavLink) can set up active classes "e.g. marker active url's"
+// note with react,NavLink -> similar to react.Link + extra props which define some Inline-Styling for active link!
 class Blog extends Component {
   render() {
     return (
@@ -20,7 +21,15 @@ class Blog extends Component {
           <nav>
             <ul>
               <li>
-                <NavLink to="/" exact>
+                <NavLink
+                  to="/"
+                  exact
+                  activeClassName="my-active"
+                  activeStyle={{
+                    color: "#fa923f",
+                    textDecoration: "underline"
+                  }}
+                >
                   Home
                 </NavLink>
               </li>
