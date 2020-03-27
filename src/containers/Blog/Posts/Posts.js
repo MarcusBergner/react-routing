@@ -34,6 +34,8 @@ class Posts extends Component {
     let posts = <p style={{ textAlign: "center" }}>Something went wrong!</p>;
     if (!this.state.error) {
       posts = this.state.posts.map(post => {
+        // Notes: For adding code to pass route parameters, wrapping your element in a Link,
+        // Return that into an absolute path!
         return (
           <Link to={"/" + post.id} key={post.id}>
             <Post
