@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "../../../axios";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Post from "../../../components/Post/Post";
 import "./Posts.css";
 class Posts extends Component {
@@ -27,8 +27,15 @@ class Posts extends Component {
         // this.setState({ error: true });
       });
   }
+  /**
+   * Documentation
+   * 
+   * @param: {selected Element on Click} id
+   */
   postSelectedHandler = id => {
-    this.setState({ selectedPostId: id });
+    // this.setState({ selectedPostId: id });
+    // note: {history.push} <-- is alternative to --> {<Link to={"/" + post.id} key={post.id}>}
+    this.props.history.push({ pathname: "/" + id });
   };
   render() {
     let posts = <p style={{ textAlign: "center" }}>Something went wrong!</p>;
@@ -37,13 +44,14 @@ class Posts extends Component {
         // Notes: For adding code to pass route parameters, wrapping your element in a Link,
         // Return that into an absolute path!
         return (
-          <Link to={"/" + post.id} key={post.id}>
-            <Post
-              title={post.title}
-              author={post.author}
-              clicked={() => this.postSelectedHandler(post.id)}
-            />
-          </Link>
+          //   <Link to={"/" + post.id} key={post.id}>
+          <Post
+            key={post.id}
+            title={post.title}
+            author={post.author}
+            clicked={() => this.postSelectedHandler(post.id)}
+          />
+          //    </Link>
         );
       });
     }
