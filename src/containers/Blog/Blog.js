@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import axios from 'axios';
 import Posts from "./Posts/Posts";
 import NewPost from "../../containers/Blog/NewPost/NewPost";
-import { Route, NavLink } from "react-router-dom";
+import { Route, NavLink, Switch } from "react-router-dom";
 import FullPost from "./FullPost/FullPost";
 
 import "./Blog.css";
@@ -14,6 +14,7 @@ import "./Blog.css";
 // search: -> allow us to add queryParams!
 // note: with (exact + NavLink) can set up active classes "e.g. marker active url's"
 // note with react,NavLink -> similar to react.Link + extra props which define some Inline-Styling for active link!
+// React.Switch -> tell react router: take the first one actually you find that matches from a given set of routes!
 class Blog extends Component {
   render() {
     return (
@@ -56,9 +57,11 @@ class Blog extends Component {
         {/* <Route path="/" exact render={() => <h1>Home</h1>} />
         <Route path="/" render={() => <h1>Home 2</h1>} /> 
         Note: Route.Parameter parsed from top to bottom, so ordering is importand!*/}
-        <Route path="/" exact component={Posts} />
-        <Route path="/new-post" component={NewPost} />
-        <Route path="/:id" exact component={FullPost} />
+        <Switch>
+          <Route path="/" exact component={Posts} />
+          <Route path="/new-post" component={NewPost} />
+          <Route path="/:id" exact component={FullPost} />
+        </Switch>
       </div>
     );
   }
