@@ -1,11 +1,22 @@
 import React, { Component } from "react";
 // import axios from 'axios';
 import Posts from "./Posts/Posts";
-import NewPost from "../../containers/Blog/NewPost/NewPost";
+// import NewPost from "../../containers/Blog/NewPost/NewPost";
 import { Route, NavLink, Switch, Redirect } from "react-router-dom";
 
 import "./Blog.css";
-
+import asyncComponent from "../../hoc/asyncComponent";
+/**
+ * import() -> is a dynamic syntax which means whatever comes between {},
+ * here is only imported when that function here is executed!
+ * And that function will only be executed once we render AsyncNewPost to the sceen.
+ * this is how you load Components asynchronously --> extremly useful in bigger apps where
+ * there are bigger chunks of code, a whole feature area in your application!
+ *
+ */
+const AsyncNewPost = asyncComponent(() => {
+  return import("../../containers/Blog/NewPost/NewPost");
+});
 // use path="/" -> to tell react router, does my path start with this...
 //exact -> Except for the case that define in path="/"!
 // Link to={{}} -> this allow to jump to any ID submit in that element,
@@ -16,7 +27,7 @@ import "./Blog.css";
 // React.Switch -> tell react router: take the first one actually you find that matches from a given set of routes!
 class Blog extends Component {
   state = {
-    auth: fasle
+    auth: true
   };
   render() {
     return (
@@ -63,7 +74,7 @@ class Blog extends Component {
         - outside Switch only redirect to.routes workes! */}
         <Switch>
           {this.state.auth ? (
-            <Route path="/new-post" component={NewPost} />
+            <Route path="/new-post" component={AsyncNewPost} />
           ) : null}
           <Route path="/posts" component={Posts} />
           {/* Notes: use the render method inside defined component without "path",
