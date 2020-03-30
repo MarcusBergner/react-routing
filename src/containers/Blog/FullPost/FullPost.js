@@ -2,21 +2,44 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import "./FullPost.css";
+
 /**
- * @param {}
+ * Importent for use nested Routes corectly use match.params.id!
+ * Importend you need handle changes in componentDidUpdate, 
+ * if component in general is already loaded through routing,
+ * because the router will not unmount the old one and mount the same one again with differnet data,
+ * it will re-use the old one and just adjust the route parameter!
+ * return -> You receive a new props, with new match object,
+ *  with a new params object, with new ID!
+ * 
  */
 class FullPost extends Component {
   state = {
     loadedPost: null
   };
 
+  /**
+   * 
+   */
   componentDidMount() {
     console.log(this.props);
     // this.props.match.params.id -> Reference to Blog.js(<Route path="/:id" exact component={FullPost} />)
+    this.loadData();
+  }
+
+  /**
+   * 
+   */
+  componentDidUpdate() {
+    this.loadData();
+
+  }
+  loadData() {
     if (this.props.match.params.id) {
       if (
         !this.state.loadedPost ||
-        (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)
+        (this.state.loadedPost && this.state.loadedPost.id != this.props.match.params.id)
+        // alternative to != (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id)
       ) {
         axios.get("/posts/" + this.props.match.params.id).then(response => {
           // console.log(response);
@@ -24,17 +47,17 @@ class FullPost extends Component {
         });
       }
     }
-  }
 
+  }
   deletePostHandler = () => {
-    axios.delete("/posts/" + this.props.id).then(response => {
+    axios.delete("/posts/" + this.props.match.params.id).then(response => {
       console.log(response);
     });
   };
 
   render() {
     let post = <p style={{ textAlign: "center" }}>Please select a Post!</p>;
-    if (this.props.id) {
+    if (this.props.match.params.id) {
       post = <p style={{ textAlign: "center" }}>Loading...!</p>;
     }
     if (this.state.loadedPost) {

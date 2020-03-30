@@ -2,8 +2,7 @@ import React, { Component } from "react";
 // import axios from 'axios';
 import Posts from "./Posts/Posts";
 import NewPost from "../../containers/Blog/NewPost/NewPost";
-import { Route, NavLink, Switch } from "react-router-dom";
-import FullPost from "./FullPost/FullPost";
+import { Route, NavLink, Switch, Redirect } from "react-router-dom";
 
 import "./Blog.css";
 
@@ -24,7 +23,7 @@ class Blog extends Component {
             <ul>
               <li>
                 <NavLink
-                  to="/"
+                  to="/posts/"
                   exact
                   activeClassName="my-active"
                   activeStyle={{
@@ -32,7 +31,7 @@ class Blog extends Component {
                     textDecoration: "underline"
                   }}
                 >
-                  Home
+                  Posts
                 </NavLink>
               </li>
               <li>
@@ -56,11 +55,14 @@ class Blog extends Component {
         </header>
         {/* <Route path="/" exact render={() => <h1>Home</h1>} />
         <Route path="/" render={() => <h1>Home 2</h1>} /> 
-        Note: Route.Parameter parsed from top to bottom, so ordering is importand!*/}
+        Note: Route.Parameter parsed from top to bottom, so ordering is importand!
+        Note: inside Switch use react-router.dom.Redirect, for navigate from.routes -> to.routes
+        - outside Switch only redirect to.routes workes! */}
         <Switch>
-          <Route path="/" exact component={Posts} />
           <Route path="/new-post" component={NewPost} />
-          <Route path="/:id" exact component={FullPost} />
+          <Route path="/posts" component={Posts} />
+          <Redirect from="/" to="/posts" />
+          {/* <Route path="/" component={Posts} /> */}
         </Switch>
       </div>
     );
