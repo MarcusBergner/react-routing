@@ -66,7 +66,13 @@ class Blog extends Component {
             <Route path="/new-post" component={NewPost} />
           ) : null}
           <Route path="/posts" component={Posts} />
-          <Redirect from="/" to="/posts" />
+          {/* Notes: use the render method inside defined component without "path",
+            to render something for any unknown route.
+           This is a nice catch all route which should ALWAYS come last and show an appropriate page,
+           or render some dummy content for unknown routes(404)!
+            (it won't work together with redirect, if you redirect from slash. )*/}
+          <Route render={() => <h1>Not Found</h1>} />
+          {/* <Redirect from="/" to="/posts" /> */}
           {/* <Route path="/" component={Posts} /> */}
         </Switch>
       </div>
