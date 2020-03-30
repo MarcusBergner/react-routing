@@ -3,6 +3,10 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 import "./NewPost.css";
 
+/**
+ *  if you dont't want to use the approach of rendering a component,
+ *  replace or push also is a way of changing the page after some operation finished!
+ */
 class NewPost extends Component {
   state = {
     title: "",
@@ -21,7 +25,9 @@ class NewPost extends Component {
     };
     axios.post("/posts", data).then(response => {
       console.log(response);
-      this.setState({ submitted: true });
+      // this.setState({ submitted: true });
+      this.props.history.push("/posts");
+      // basically does the same as Redirect {this.props.history.replace("/posts")}
     });
   };
 
@@ -29,6 +35,7 @@ class NewPost extends Component {
       redirect = <Redirect to="/posts" />;
    * this is a example for conditional redirect with react-router-dom.Redirect,
     outside of a switch statement!
+    -redirect replaces the current page on a stack, it doesn't push a new one!
    */
   render() {
     let redirect = null;
