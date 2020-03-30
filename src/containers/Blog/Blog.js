@@ -12,9 +12,12 @@ import "./Blog.css";
 // add ("#" / URL) to jump to that Point!
 // search: -> allow us to add queryParams!
 // note: with (exact + NavLink) can set up active classes "e.g. marker active url's"
-// note with react,NavLink -> similar to react.Link + extra props which define some Inline-Styling for active link!
+// note: with react,NavLink -> similar to react.Link + extra props which define some Inline-Styling for active link!
 // React.Switch -> tell react router: take the first one actually you find that matches from a given set of routes!
 class Blog extends Component {
+  state = {
+    auth: fasle
+  };
   render() {
     return (
       <div className="Blog">
@@ -59,7 +62,9 @@ class Blog extends Component {
         Note: inside Switch use react-router.dom.Redirect, for navigate from.routes -> to.routes
         - outside Switch only redirect to.routes workes! */}
         <Switch>
-          <Route path="/new-post" component={NewPost} />
+          {this.state.auth ? (
+            <Route path="/new-post" component={NewPost} />
+          ) : null}
           <Route path="/posts" component={Posts} />
           <Redirect from="/" to="/posts" />
           {/* <Route path="/" component={Posts} /> */}

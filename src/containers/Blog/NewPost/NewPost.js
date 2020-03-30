@@ -14,7 +14,12 @@ class NewPost extends Component {
     author: "Max",
     submitted: false
   };
+  /**
+   * here is a place to check, if the user Authenticated.
+   * essentially redirect the user if it's not true.
+   */
   componentDidMount() {
+    // If unauth => this.props.history.replace("/posts");
     console.log(this.props);
   }
   postDataHandler = () => {
